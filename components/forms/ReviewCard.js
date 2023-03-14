@@ -2,13 +2,13 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { deleteSingleReview, getReviews } from '../../api/reviewData';
+import { deleteSingleReview, getSingleReview } from '../../api/reviewData';
 
 function ReviewCard({ reviewObj, onUpdate }) {
-  const [setReviewDetails] = useState([]);
+  const [reviewDetails, setReviewDetails] = useState([]);
 
   useEffect(() => {
-    getReviews().then(setReviewDetails);
+    getSingleReview(reviewDetails.gameId).then(setReviewDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -21,8 +21,8 @@ function ReviewCard({ reviewObj, onUpdate }) {
   return (
     <Card style={{ width: '35rem', margin: '10px' }}>
       <Card.Body>
-        <Card.Text>{reviewObj.description}</Card.Text>
-        <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>
+        <Card.Text>{reviewDetails.description}</Card.Text>
+        <Link href={`/review/edit/${reviewDetails.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisReview} className="m-2">
