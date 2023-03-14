@@ -1,0 +1,97 @@
+import { clientCredentials } from '../utils/client';
+
+const endpoint = clientCredentials.databaseURL;
+
+const getGames = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game/.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+const createGame = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game/.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+// GET SINGLE GAME
+const getSingleGame = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game/${firebaseKey}.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+// DELETE GAME
+const deleteSingleGame = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game/${firebaseKey}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
+// UPDATE GAME
+const updateGame = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game/${payload.firebaseKey}.json`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
+const getGameName = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/games?key=22d748d8c7794d06acce37f48a22b830&search=${payload}.json`, {
+    method: 'GET',
+    headrers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data.results)))
+    .then((resultsArray) => resolve((resultsArray.name.map)))
+    .catch(reject);
+});
+
+export {
+  getGames,
+  createGame,
+  getSingleGame,
+  deleteSingleGame,
+  updateGame,
+  getGameName,
+};
