@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { viewGameDetails } from '../../api/mergedData';
 import ReviewCard from '../../components/forms/ReviewCard';
-import ReviewForm from '../../components/forms/ReviewForm';
 
 export default function ViewGame() {
   const [gameDetails, setGameDetails] = useState({});
@@ -34,12 +35,12 @@ export default function ViewGame() {
           Platform: {gameDetails.platform}
           <hr />
         </h5>
-      </div>
-      <div>
-        <ReviewForm />
-      </div>
-      <div>
-        <ReviewCard />
+        <Link href="/review/new" passHref>
+          <Button variant="primary" className="m-2">Add Review</Button>
+        </Link>
+        <div>
+          <ReviewCard />
+        </div>
       </div>
     </div>
   );

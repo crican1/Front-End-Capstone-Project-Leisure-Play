@@ -2,26 +2,28 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
-import { createReview, updateReview } from '../../api/reviewData';
+import { createReview, getSingleReview, updateReview } from '../../api/reviewData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
   description: '',
-  gameId: '',
   firebaseKey: '',
+  gameId: '',
 };
 
 function ReviewForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [setReviews] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
+    getSingleReview().then(setReviews);
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
-  }, [obj]);
+  }, [obj, setReviews]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +46,7 @@ function ReviewForm({ obj }) {
       // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
       createReview(payload).then(() => {
-        router.push(`/game/${obj.firebaseKey}.json`);
+        router.push(`/game/${obj.gameId}.json`);
       });
     }
   };
@@ -52,6 +54,7 @@ function ReviewForm({ obj }) {
   return (
     <Form onSubmit={handleSubmit}>
       <textarea
+        style={{ width: '45rem', margin: '10px', height: '150px' }}
         type="text"
         placeholder="Submit a review"
         name="description"
@@ -67,8 +70,8 @@ function ReviewForm({ obj }) {
 ReviewForm.propTypes = {
   obj: PropTypes.shape({
     description: PropTypes.string,
-    gameId: PropTypes.string,
     firebaseKey: PropTypes.string,
+    gameId: PropTypes.string,
   }),
 };
 

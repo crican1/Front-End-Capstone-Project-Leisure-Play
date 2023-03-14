@@ -26,7 +26,6 @@ function GameCard({ gameObj, onUpdate }) {
         <Card.Title>{gameObj.name}</Card.Title>
         <Card.Text>{gameObj.genre}</Card.Text>
         <Card.Text>{gameObj.platform}</Card.Text>
-
         <Link href={`/game/${gameObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
