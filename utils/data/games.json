@@ -1,0 +1,42 @@
+{
+  "-NPPVGSa1IgpMg3FKAu2": {
+    "collection_id": "1",
+    "gameId": "4286",
+    "image": "https://media.rawg.io/media/games/bc0/bc06a29ceac58652b684deefe7d56099.jpg",
+    "name": "Bioshock",
+    "genre": "Shooter",
+    "platform": "Xbox",
+    "review": "This is the review for Bioshock.",
+    "firebaseKey": "-NPPVGSa1IgpMg3FKAu2"
+  },
+  "-NPPVGScuoG-ebuxNZMy": {
+    "collection_id": "1",
+    "gameId": "326243",
+    "image": "https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg",
+    "name": "Elden Ring",
+    "genre": "RPG",
+    "platform": "Xbox",
+    "review": "This is the review for Elden Ring.",
+    "firebaseKey": "-NPPVGScuoG-ebuxNZMy"
+  },
+  "-NPPVGSe331RPRV0zmtj": {
+    "collection_id": "1",
+    "gameId": "28",
+    "image": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg",
+    "name": "Red Dead Redemption 2",
+    "genre": "Adventure",
+    "platform": "Xbox",
+    "review": "This is the review for Red Dead Redemption 2.",
+    "firebaseKey": "-NPPVGSe331RPRV0zmtj"
+  },
+  "-NPPVGSgDynUzJ26bdMW": {
+    "collection_id": "1",
+    "gameId": "622492",
+    "image": "https://media.rawg.io/media/games/082/082365507ff04d456c700157072d35db.jpg",
+    "name": "Forza Horizon 5",
+    "genre": "Racing",
+    "platform": "Xbox",
+    "review": "This is the review for Forza Horizon 5.",
+    "firebaseKey": "-NPPVGSgDynUzJ26bdMW"
+  }
+}
