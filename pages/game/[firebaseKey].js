@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { viewGameDetails } from '../../api/mergedData';
+import { getGameDetails } from '../../api/mergedData';
 import ReviewCard from '../../components/forms/ReviewCard';
 
 export default function ViewGame() {
@@ -12,7 +12,7 @@ export default function ViewGame() {
   const { firebaseKey } = router.query;
 
   const OnUpdateGame = () => {
-    viewGameDetails(firebaseKey).then(setGameDetails);
+    getGameDetails(firebaseKey).then(setGameDetails);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function ViewGame() {
           <Button variant="primary" className="m-2">Add Review</Button>
         </Link>
         <div>
-          <ReviewCard />
+          <ReviewCard obj={gameDetails} />
         </div>
       </div>
     </div>

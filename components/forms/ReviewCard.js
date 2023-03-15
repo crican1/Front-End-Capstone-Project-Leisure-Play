@@ -2,13 +2,14 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { deleteSingleReview, getSingleReview } from '../../api/reviewData';
+import { getGameReviews } from '../../api/gameData';
+import { deleteSingleReview } from '../../api/reviewData';
 
 function ReviewCard({ reviewObj, onUpdate }) {
   const [reviewDetails, setReviewDetails] = useState([]);
 
   useEffect(() => {
-    getSingleReview(reviewDetails.gameId).then(setReviewDetails);
+    getGameReviews(reviewDetails.firebaseKey).then(setReviewDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,8 +37,8 @@ function ReviewCard({ reviewObj, onUpdate }) {
 ReviewCard.propTypes = {
   reviewObj: PropTypes.shape({
     description: PropTypes.string,
-    gameId: PropTypes.string,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

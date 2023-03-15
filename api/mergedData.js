@@ -1,7 +1,15 @@
 import { getCollectionGames, getSingleCollection } from './collectionData';
 import { getSingleGame } from './gameData';
+import { getSingleReview } from './reviewData';
 
-const viewGameDetails = (firebaseKey) => new Promise((resolve, reject) => {
+const getGameDetails = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleReview(firebaseKey).then((gameObj) => {
+    getSingleGame(gameObj.firebaseKey).then((reviewObject) => resolve({ ...gameObj, reviewObject }));
+  })
+    .catch(reject);
+});
+
+const viewGameCollectionDetails = (firebaseKey) => new Promise((resolve, reject) => {
   getSingleGame(firebaseKey).then((gameObj) => {
     getSingleCollection(gameObj.collection_id).then((collectionObject) => resolve({ ...gameObj, collectionObject }));
   })
@@ -16,6 +24,7 @@ const viewCollectionDetails = (collectionFirebaseKey) => new Promise((resolve, r
 });
 
 export {
-  viewGameDetails,
+  getGameDetails,
+  viewGameCollectionDetails,
   viewCollectionDetails,
 };

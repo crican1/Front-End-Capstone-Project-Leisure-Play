@@ -9,7 +9,6 @@ const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
   description: '',
   firebaseKey: '',
-  gameId: '',
 };
 
 function ReviewForm({ obj }) {
@@ -46,7 +45,7 @@ function ReviewForm({ obj }) {
       // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
       createReview(payload).then(() => {
-        router.push(`/game/${obj.gameId}.json`);
+        router.push(`/game/${obj.firebaseKey}.json`);
       });
     }
   };
@@ -71,7 +70,6 @@ ReviewForm.propTypes = {
   obj: PropTypes.shape({
     description: PropTypes.string,
     firebaseKey: PropTypes.string,
-    gameId: PropTypes.string,
   }),
 };
 
