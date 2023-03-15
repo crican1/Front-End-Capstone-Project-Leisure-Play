@@ -87,6 +87,18 @@ const getGameName = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getGameReviews = (firebasekey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/game.json?orderBy="firebaseKey"&equalTo="${firebasekey}"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 export {
   getGames,
   createGame,
@@ -94,4 +106,5 @@ export {
   deleteSingleGame,
   updateGame,
   getGameName,
+  getGameReviews,
 };

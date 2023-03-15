@@ -34,8 +34,8 @@ const createReview = (payload) => new Promise((resolve, reject) => {
 });
 
 // GET SINGLE Review
-const getSingleReview = (gameId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/review/${gameId}.json`, {
+const getSingleReview = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/review/${firebaseKey}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

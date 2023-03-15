@@ -9,9 +9,9 @@ function GameCard({ gameObj, onUpdate }) {
   const [setGameDetails] = useState([]);
 
   useEffect(() => {
-    getSingleCollection(gameObj.gameId).then(setGameDetails);
+    getSingleCollection(gameObj.firebaseKey).then(setGameDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameObj.gameId]);
+  }, [gameObj.firebaseKey]);
 
   const deleteThisGame = () => {
     if (window.confirm(`Delete ${gameObj.name}?`)) {
@@ -48,6 +48,7 @@ GameCard.propTypes = {
     genre: PropTypes.string,
     platform: PropTypes.string,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
