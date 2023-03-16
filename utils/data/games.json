@@ -6,8 +6,8 @@
     "name": "Bioshock",
     "genre": "Shooter",
     "platform": "Xbox",
-    "review": "This is the review for Bioshock.",
-    "firebaseKey": "-NPPVGSa1IgpMg3FKAu2"
+    "firebaseKey": "-NPPVGSa1IgpMg3FKAu2",
+    "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
   },
   "-NPPVGScuoG-ebuxNZMy": {
     "collection_id": "1",
@@ -16,8 +16,8 @@
     "name": "Elden Ring",
     "genre": "RPG",
     "platform": "Xbox",
-    "review": "This is the review for Elden Ring.",
-    "firebaseKey": "-NPPVGScuoG-ebuxNZMy"
+    "firebaseKey": "-NPPVGScuoG-ebuxNZMy",
+    "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
   },
   "-NPPVGSe331RPRV0zmtj": {
     "collection_id": "1",
@@ -26,8 +26,8 @@
     "name": "Red Dead Redemption 2",
     "genre": "Adventure",
     "platform": "Xbox",
-    "review": "This is the review for Red Dead Redemption 2.",
-    "firebaseKey": "-NPPVGSe331RPRV0zmtj"
+    "firebaseKey": "-NPPVGSe331RPRV0zmtj",
+    "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
   },
   "-NPPVGSgDynUzJ26bdMW": {
     "collection_id": "1",
@@ -36,7 +36,7 @@
     "name": "Forza Horizon 5",
     "genre": "Racing",
     "platform": "Xbox",
-    "review": "This is the review for Forza Horizon 5.",
-    "firebaseKey": "-NPPVGSgDynUzJ26bdMW"
+    "firebaseKey": "-NPPVGSgDynUzJ26bdMW",
+    "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
   }
 }
