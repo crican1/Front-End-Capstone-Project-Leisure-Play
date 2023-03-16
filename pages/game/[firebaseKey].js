@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getGameDetails } from '../../api/mergedData';
-import ReviewCard from '../../components/forms/ReviewCard';
+import ReviewCard from '../../components/ReviewCard';
 
 export default function ViewGame() {
   const [gameDetails, setGameDetails] = useState({});
@@ -38,8 +38,15 @@ export default function ViewGame() {
         <Link href="/review/new" passHref>
           <Button variant="primary" className="m-2">Add Review</Button>
         </Link>
-        <div>
-          <ReviewCard obj={gameDetails} />
+      </div>
+      <div>
+        <h5>
+          {gameDetails.name}
+        </h5>
+        <div className="d-flex flex-wrap">
+          {gameDetails.review?.map((review) => (
+            <ReviewCard key={review.firebaseKey} reviewObj={review} onUpdate={OnUpdateGame} />
+          ))}
         </div>
       </div>
     </div>

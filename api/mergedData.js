@@ -3,8 +3,8 @@ import { getSingleGame } from './gameData';
 import { getSingleReview } from './reviewData';
 
 const getGameDetails = (firebaseKey) => new Promise((resolve, reject) => {
-  getSingleReview(firebaseKey).then((gameObj) => {
-    getSingleGame(gameObj.firebaseKey).then((reviewObject) => resolve({ ...gameObj, reviewObject }));
+  getSingleReview(firebaseKey).then((reviewObj) => {
+    getSingleGame(reviewObj.firebaseKey).then((gameObject) => resolve({ gameObject, ...reviewObj }));
   })
     .catch(reject);
 });

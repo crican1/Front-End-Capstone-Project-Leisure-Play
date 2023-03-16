@@ -8,7 +8,9 @@ import { useAuth } from '../../utils/context/authContext';
 const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
   description: '',
+  gameId: '',
   firebaseKey: '',
+  uid: '',
 };
 
 function ReviewForm({ obj }) {
@@ -69,7 +71,9 @@ function ReviewForm({ obj }) {
 ReviewForm.propTypes = {
   obj: PropTypes.shape({
     description: PropTypes.string,
+    gameId: PropTypes.string,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }),
 };
 
