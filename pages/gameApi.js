@@ -10,7 +10,7 @@ function GetGameData() {
   const { firebaseKey } = router.query;
 
   useEffect(() => {
-    fetch('https://api.rawg.io/api/games?key=22d748d8c7794d06acce37f48a22b830&search=kingdom hearts 3')
+    fetch('https://api.rawg.io/api/games?key=22d748d8c7794d06acce37f48a22b830&search=bioshock')
       .then((response) => response.json())
       .then((data) => {
         setGame(data.results[0]);

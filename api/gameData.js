@@ -22,14 +22,13 @@ const getGames = () => new Promise((resolve, reject) => {
 
 const createGame = (payload) => new Promise((resolve, reject) => {
   fetch(`https://api.rawg.io/api/games?key=22d748d8c7794d06acce37f48a22b830&search=${payload}`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
   })
     .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((data) => resolve(data.results[0]))
     .catch(reject);
 });
 
