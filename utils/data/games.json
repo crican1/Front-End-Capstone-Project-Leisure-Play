@@ -2,9 +2,9 @@
   "-NPPVGSa1IgpMg3FKAu2": {
     "collection_id": "1",
     "gameId": "4286",
-    "image": "https://media.rawg.io/media/games/bc0/bc06a29ceac58652b684deefe7d56099.jpg",
+    "background_image": "https://media.rawg.io/media/games/bc0/bc06a29ceac58652b684deefe7d56099.jpg",
     "name": "Bioshock",
-    "genre": "Shooter",
+    "genres": "Shooter",
     "platform": "Xbox",
     "firebaseKey": "-NPPVGSa1IgpMg3FKAu2",
     "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
@@ -12,9 +12,9 @@
   "-NPPVGScuoG-ebuxNZMy": {
     "collection_id": "1",
     "gameId": "326243",
-    "image": "https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg",
+    "background_image": "https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg",
     "name": "Elden Ring",
-    "genre": "RPG",
+    "genres": "RPG",
     "platform": "Xbox",
     "firebaseKey": "-NPPVGScuoG-ebuxNZMy",
     "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
@@ -22,9 +22,9 @@
   "-NPPVGSe331RPRV0zmtj": {
     "collection_id": "1",
     "gameId": "28",
-    "image": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg",
+    "background_image": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg",
     "name": "Red Dead Redemption 2",
-    "genre": "Adventure",
+    "genres": "Adventure",
     "platform": "Xbox",
     "firebaseKey": "-NPPVGSe331RPRV0zmtj",
     "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"
@@ -32,9 +32,9 @@
   "-NPPVGSgDynUzJ26bdMW": {
     "collection_id": "1",
     "gameId": "622492",
-    "image": "https://media.rawg.io/media/games/082/082365507ff04d456c700157072d35db.jpg",
+    "background_image": "https://media.rawg.io/media/games/082/082365507ff04d456c700157072d35db.jpg",
     "name": "Forza Horizon 5",
-    "genre": "Racing",
+    "genres": "Racing",
     "platform": "Xbox",
     "firebaseKey": "-NPPVGSgDynUzJ26bdMW",
     "uid": "K5CEgMBNxAYuQerI3TNiqEhSeyG2"

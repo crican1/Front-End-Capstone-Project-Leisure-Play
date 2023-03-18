@@ -1,12 +1,15 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { getSingleCollection } from '../api/collectionData';
 import { deleteSingleGame } from '../api/gameData';
 
-function GameCard({ gameObj, onUpdate }) {
+function GameCard({ gameObj }) {
   const [setGameDetails] = useState([]);
+  const router = useRouter();
+  const { firebaseKey } = router.query;
 
   useEffect(() => {
     getSingleCollection(gameObj.firebaseKey).then(setGameDetails);
@@ -15,42 +18,47 @@ function GameCard({ gameObj, onUpdate }) {
 
   const deleteThisGame = () => {
     if (window.confirm(`Delete ${gameObj.name}?`)) {
-      deleteSingleGame(gameObj.firebaseKey).then(() => onUpdate());
+      deleteSingleGame(gameObj.firebaseKey).then(() => router.push(`/game/${firebaseKey}`));
     }
   };
 
   return (
-    <Card style={{ width: '50rem', margin: '10px' }}>
-      <Card.Img variant="top" src={gameObj.image} alt={gameObj.name} style={{ height: '450px' }} />
-      <Card.Body>
-        <Card.Title>{gameObj.name}</Card.Title>
-        <Card.Text>{gameObj.genre}</Card.Text>
-        <Card.Text>{gameObj.platform}</Card.Text>
-        <Link href={`/game/${gameObj.firebaseKey}`} passHref>
-          <Button variant="primary" className="m-2">VIEW</Button>
-        </Link>
-        <Link href={`/game/edit/${gameObj.firebaseKey}`} passHref>
-          <Button variant="info">EDIT</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisGame} className="m-2">
-          DELETE
-        </Button>
-      </Card.Body>
-    </Card>
+    <>
+      <Card style={{ width: '50rem', margin: '10px' }}>
+        <Card.Img variant="top" src={gameObj.background_image} alt={gameObj.name} style={{ height: '450px' }} />
+        <Card.Body>
+          <Card.Text><h4>Title:</h4> {gameObj.name}</Card.Text>
+          <Card.Text><h4>Genres:</h4> {gameObj.genres?.map((g) => (
+            <p>{g.name}</p>
+          ))}
+          </Card.Text>
+          <Card.Text><h4>Realease Date:</h4> {gameObj.released}</Card.Text>
+          <Card.Text><h4>Game Id:</h4> {gameObj.id}</Card.Text>
+          <Link href={`/game/edit/${gameObj.firebaseKey}`} passHref>
+            <Button variant="info">EDIT</Button>
+          </Link>
+          <Link href="/review/new" passHref>
+            <Button variant="primary" className="m-2">Add Review</Button>
+          </Link>
+          <Button variant="danger" onClick={deleteThisGame} className="m-2">
+            DELETE
+          </Button>
+        </Card.Body>
+      </Card>
+    </>
   );
 }
 
 GameCard.propTypes = {
   gameObj: PropTypes.shape({
-    gameId: PropTypes.string,
-    image: PropTypes.string,
+    background_image: PropTypes.string,
     name: PropTypes.string,
-    genre: PropTypes.string,
-    platform: PropTypes.string,
+    genres: PropTypes.string,
+    released: PropTypes.string,
+    id: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
-  onUpdate: PropTypes.func.isRequired,
 };
 
 export default GameCard;
