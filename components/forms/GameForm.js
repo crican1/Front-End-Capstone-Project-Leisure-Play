@@ -53,12 +53,13 @@ function GameForm({ obj }) {
     } else {
       // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
-      createGame(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
-        updateGame(patchPayload).then(() => {
-          router.push('/game');
-        });
-      });
+      createGame(payload.name).then(console.warn);
+      // .then(({ name }) => {
+      //   const patchPayload = { firebaseKey: name };
+      //   updateGame(patchPayload).then(() => {
+      //     router.push('/game');
+      //   });
+      // });
     }
   };
 
