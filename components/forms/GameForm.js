@@ -8,10 +8,12 @@ import { createGame, getGames, updateGame } from '../../api/gameData';
 
 const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
-  image: '',
+  background_image: '',
   name: '',
-  genre: '',
+  genres: '',
+  realeased: '',
   platform: '',
+  id: '',
   firebaseKey: '',
 };
 
@@ -67,32 +69,12 @@ function GameForm({ obj }) {
       </Head>
       <Form onSubmit={handleSubmit}>
         <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Add'} A Game</h2>
-        <FloatingLabel controlId="floatinginput1" label="Game Image" className="mb-3">
-          <Form.Control
-            type="url"
-            placeholder="Enter an image url"
-            name="image"
-            value={formInput.image}
-            onChange={handleChange}
-            required
-          />
-        </FloatingLabel>
         <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3">
           <Form.Control
             type="text"
             placeholder="Enter name"
             name="name"
             value={formInput.name}
-            onChange={handleChange}
-            required
-          />
-        </FloatingLabel>
-        <FloatingLabel controlId="floatinginput1" label="Genre" className="mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Enter a genre"
-            name="genre"
-            value={formInput.genre}
             onChange={handleChange}
             required
           />
@@ -122,10 +104,11 @@ function GameForm({ obj }) {
 // MAKES SURE THE VALUES BEING PASSED ARE THE CORRECT TYPE.
 GameForm.propTypes = {
   obj: PropTypes.shape({
-    image: PropTypes.string,
-    title: PropTypes.string,
-    genre: PropTypes.string,
+    name: PropTypes.string,
+    genres: PropTypes.string,
+    realeased: PropTypes.string,
     platform: PropTypes.string,
+    id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };

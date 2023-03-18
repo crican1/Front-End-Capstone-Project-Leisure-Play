@@ -70,8 +70,8 @@ const updateCollection = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getCollectionGames = (teamFirebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/collection.json?orderBy="collection_id"&equalTo="${teamFirebaseKey}"`, {
+const getCollectionGames = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/collection.json?orderBy="collection_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'applications/json',

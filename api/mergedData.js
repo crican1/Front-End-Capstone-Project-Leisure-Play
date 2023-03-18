@@ -9,7 +9,7 @@ const getGameDetails = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const viewGameCollectionDetails = (firebaseKey) => new Promise((resolve, reject) => {
+const getCollectionDetails = (firebaseKey) => new Promise((resolve, reject) => {
   getSingleGame(firebaseKey).then((gameObj) => {
     getSingleCollection(gameObj.collection_id).then((collectionObject) => resolve({ ...gameObj, collectionObject }));
   })
@@ -25,6 +25,6 @@ const viewCollectionDetails = (collectionFirebaseKey) => new Promise((resolve, r
 
 export {
   getGameDetails,
-  viewGameCollectionDetails,
+  getCollectionDetails,
   viewCollectionDetails,
 };

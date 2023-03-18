@@ -1,11 +1,16 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
+import { deleteSingleGame } from '../api/gameData';
 
 function GetGameData() {
   const [gameObj, setGame] = useState([]);
+  const router = useRouter();
+  const { firebaseKey } = router.query;
 
   useEffect(() => {
-    fetch('https://api.rawg.io/api/games?key=22d748d8c7794d06acce37f48a22b830&search=bioshock')
+    fetch('https://api.rawg.io/api/games?key=22d748d8c7794d06acce37f48a22b830&search=kingdom hearts 3')
       .then((response) => response.json())
       .then((data) => {
         setGame(data.results[0]);
@@ -15,19 +20,33 @@ function GetGameData() {
       });
   }, []);
 
+  const deleteThisGame = () => {
+    if (window.confirm(`Delete ${gameObj.name}?`)) {
+      deleteSingleGame(gameObj.firebaseKey).then(() => router.push(`/game/${firebaseKey}`));
+    }
+  };
+
   return (
     <>
       <Card style={{ width: '50rem', margin: '10px' }}>
         <Card.Img variant="top" src={gameObj.background_image} alt={gameObj.name} style={{ height: '450px' }} />
         <Card.Body>
-          <Card.Title>{gameObj.name}</Card.Title>
-          <Card.Text>Realease Date: {gameObj.released}</Card.Text>
-          <Card.Text>Genres: {gameObj.genres[0].name}</Card.Text>
-          <Card.Text>Game Id: {gameObj.id}</Card.Text>
+          <Card.Text><h4>Title:</h4> {gameObj.name}</Card.Text>
+          <Card.Text><h4>Genres:</h4> {gameObj.genres?.map((g) => (
+            <p>{g.name}</p>
+          ))}
+          </Card.Text>
+          <Card.Text><h4>Realease Date:</h4> {gameObj.released}</Card.Text>
+          <Card.Text><h4>Game Id:</h4> {gameObj.id}</Card.Text>
+          <Link href="/review/new" passHref>
+            <Button variant="primary" className="m-2">Add Review</Button>
+          </Link>
+          <Button variant="danger" onClick={deleteThisGame} className="m-2">
+            DELETE
+          </Button>
         </Card.Body>
       </Card>
     </>
   );
 }
-
 export default GetGameData;
