@@ -1,24 +1,30 @@
-import { signOut } from '../utils/auth';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { getGames } from '../api/gameData';
+import GameCard from '../components/GameCard';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
   const { user } = useAuth();
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    getGames().then(setGames);
+  }, [user]);
+
+  const getAllGames = () => {
+    getGames().then(setGames);
+  };
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <button className="btn btn-danger btn-lg copy-btn" type="button" onClick={signOut}>
-        Sign Out
-      </button>
+    <div>
+      <Head>
+        <title>Games</title>
+      </Head>
+      <h1>Games</h1>
+      {games.map((game) => (
+        <GameCard key={game.firebaseKey} gameObj={game} onUpdate={getAllGames} />
+      ))}
     </div>
   );
 }
