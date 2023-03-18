@@ -9,6 +9,7 @@ const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
   description: '',
   gameId: '',
+  recommend: '',
   firebaseKey: '',
   uid: '',
 };
@@ -24,7 +25,8 @@ function ReviewForm({ obj }) {
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
-  }, [obj, setReviews]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,6 +65,20 @@ function ReviewForm({ obj }) {
         onChange={handleChange}
         required
       />
+      <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="recommend"
+        name="recommend"
+        label="Recommend?"
+        checked={formInput.recommend}
+        onChange={(e) => {
+          setFormInput((prevState) => ({
+            ...prevState,
+            recommend: e.target.checked,
+          }));
+        }}
+      />
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Review</Button>
     </Form>
   );
@@ -71,6 +87,7 @@ function ReviewForm({ obj }) {
 ReviewForm.propTypes = {
   obj: PropTypes.shape({
     description: PropTypes.string,
+    recommend: PropTypes.bool,
     gameId: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
