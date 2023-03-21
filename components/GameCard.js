@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { getSingleCollection } from '../api/collectionData';
-import { deleteSingleGame } from '../api/gameData';
+import { deleteGameReviewsRelationship } from '../api/mergedData';
+import { useAuth } from '../utils/context/authContext';
 
 function GameCard({ gameObj, onUpdate }) {
+  const { user } = useAuth();
   const [setGameDetails] = useState([]);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ function GameCard({ gameObj, onUpdate }) {
 
   const deleteThisGame = () => {
     if (window.confirm(`Delete ${gameObj.name}?`)) {
-      deleteSingleGame(gameObj.firebaseKey).then(() => onUpdate());
+      deleteGameReviewsRelationship(gameObj.firebaseKey).then(() => onUpdate());
     }
   };
 
@@ -26,16 +28,19 @@ function GameCard({ gameObj, onUpdate }) {
         <Card.Title>{gameObj.name}</Card.Title>
         <Card.Text>{gameObj.genre}</Card.Text>
         <Card.Text>{gameObj.platform}</Card.Text>
-
         <Link href={`/game/${gameObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
-        <Link href={`/game/edit/${gameObj.firebaseKey}`} passHref>
-          <Button variant="info">EDIT</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisGame} className="m-2">
-          DELETE
-        </Button>
+        {gameObj.uid === user.uid ? (
+          <>
+            <Link href={`/game/edit/${gameObj.firebaseKey}`} passHref>
+              <Button variant="info">EDIT</Button>
+            </Link>
+            <Button variant="danger" onClick={deleteThisGame} className="m-2">
+              DELETE
+            </Button>
+          </>
+        ) : null}
       </Card.Body>
     </Card>
   );
@@ -49,6 +54,7 @@ GameCard.propTypes = {
     genre: PropTypes.string,
     platform: PropTypes.string,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

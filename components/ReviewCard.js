@@ -27,13 +27,16 @@ function ReviewCard({ reviewObj, onUpdate }) {
         <Card.Text>{reviewObj.description}</Card.Text>
         <Card.Text>Reviewed by: {user.displayName}</Card.Text>
         <h5 className="card-text bold">{reviewObj.recommend && <span>Recommended<br /></span> }</h5>
-        {/* DYNAMIC LINK TO VIEW THE BOOK DETAILS  */}
-        <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>
-          <Button variant="info">EDIT</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisReview} className="m-2">
-          DELETE
-        </Button>
+        {reviewObj.uid === user.uid ? (
+          <>
+            <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>
+              <Button variant="info">EDIT</Button>
+            </Link>
+            <Button variant="danger" onClick={deleteThisReview} className="m-2">
+              DELETE
+            </Button>
+          </>
+        ) : null}
       </Card.Body>
     </Card>
   );

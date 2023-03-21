@@ -36,7 +36,7 @@ export default function ViewGame() {
           <hr />
         </h5>
         <Link href="/review/new" passHref>
-          <Button variant="info">Create Review</Button>
+          <Button variant="warning">Create Review</Button>
         </Link>
       </div>
       <div>

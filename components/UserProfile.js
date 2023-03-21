@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Head from 'next/head';
 import { useAuth } from '../utils/context/authContext';
 import { signOut } from '../utils/auth';
 
@@ -8,6 +9,10 @@ export default function Profile() {
 
   return (
     <div>
+      <Head>
+        <title>Profile</title>
+      </Head>
+      <h1>Profile</h1>
       <img src={user.photoURL} alt="userURL" width="100px" height="100px" />
       <h1> Name: {user.displayName}</h1>
       <h3> Email: {user.email}</h3>

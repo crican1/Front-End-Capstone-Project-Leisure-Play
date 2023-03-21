@@ -22,7 +22,7 @@ function ReviewForm({ obj }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    getGames(user.uid).then(setGames);
+    getGames().then(setGames);
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
@@ -59,13 +59,14 @@ function ReviewForm({ obj }) {
       <Head>
         <title>Create Review</title>
       </Head>
+      <h1>Review a Game</h1>
       <FloatingLabel controlId="floatingSelect" label="Game Name">
         <Form.Select
           aria-label="Game Name"
           name="name"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.name}
+          value={games.name}
           required
         >
           <option value="">Select a Game</option>

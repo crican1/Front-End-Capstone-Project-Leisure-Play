@@ -1,5 +1,8 @@
 import { getSingleCollection } from './collectionData';
-import { getGameReviews, getGames, getSingleGame } from './gameData';
+import {
+  deleteSingleGame, getGameReviews, getGames, getSingleGame,
+} from './gameData';
+import { deleteSingleReview } from './reviewData';
 
 const viewGameAndReviews = (gameFirebaseKey) => new Promise((resolve, reject) => {
   Promise.all([getSingleGame(gameFirebaseKey), getGameReviews(gameFirebaseKey)])
@@ -15,7 +18,18 @@ const viewCollectionDetails = (collectionfirebaseKey) => new Promise((resolve, r
     .catch(reject);
 });
 
+const deleteGameReviewsRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getGameReviews(firebaseKey).then((reviewsArray) => {
+    const deleteReviewPromises = reviewsArray.map((review) => deleteSingleReview(review.firebaseKey));
+    Promise.all(deleteReviewPromises).then(() => {
+      deleteSingleGame(firebaseKey).then(resolve);
+    });
+  })
+    .catch(reject);
+});
+
 export {
   viewCollectionDetails,
   viewGameAndReviews,
+  deleteGameReviewsRelationship,
 };

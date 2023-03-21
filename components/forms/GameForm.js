@@ -65,8 +65,8 @@ function GameForm({ obj }) {
       <Head>
         <title>Create Game</title>
       </Head>
+      <h1>Create a Game</h1>
       <Form onSubmit={handleSubmit}>
-        <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Add'} A Game</h2>
         <FloatingLabel controlId="floatinginput1" label="Game Image" className="mb-3">
           <Form.Control
             type="url"
@@ -107,6 +107,7 @@ function GameForm({ obj }) {
             onChange={handleChange}
             required
           >
+            <option value="">Select an Option</option>
             <option value="Xbox">Xbox</option>
             <option value="Playstation">Playstation</option>
             <option value="PC">PC</option>

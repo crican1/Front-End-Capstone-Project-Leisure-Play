@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getGames } from '../api/gameData';
-import GenreFilter from '../components/Filter';
 import GameCard from '../components/GameCard';
 
 export default function ShowGames() {
@@ -23,7 +22,6 @@ export default function ShowGames() {
         <title>Games</title>
       </Head>
       <h1>Games</h1>
-      <GenreFilter />
       <div
         style={{
           display: 'flex',
@@ -31,8 +29,11 @@ export default function ShowGames() {
           alignItems: 'center',
         }}
       >
+        <Link passHref href="/game/new">
+          <Button variant="warning">Create Game</Button>
+        </Link> &nbsp;&nbsp;
         <Link href="/review/new" passHref>
-          <Button variant="info">Create Review</Button>
+          <Button variant="warning">Create Review</Button>
         </Link>
       </div>
       {games.map((game) => (
