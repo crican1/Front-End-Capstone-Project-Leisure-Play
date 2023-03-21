@@ -2,13 +2,16 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { deleteSingleReview, getReviews } from '../../api/reviewData';
+import { getGameReviews } from '../api/gameData';
+import { deleteSingleReview } from '../api/reviewData';
+import { useAuth } from '../utils/context/authContext';
 
 function ReviewCard({ reviewObj, onUpdate }) {
-  const [setReviewDetails] = useState([]);
+  const { user } = useAuth();
+  const [reviewDetails, setReviewDetails] = useState([]);
 
   useEffect(() => {
-    getReviews().then(setReviewDetails);
+    getGameReviews(reviewDetails.firebaseKey).then(setReviewDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -22,6 +25,9 @@ function ReviewCard({ reviewObj, onUpdate }) {
     <Card style={{ width: '35rem', margin: '10px' }}>
       <Card.Body>
         <Card.Text>{reviewObj.description}</Card.Text>
+        <Card.Text>Reviewed by: {user.displayName}</Card.Text>
+        <h5 className="card-text bold">{reviewObj.recommend && <span>Recommended<br /></span> }</h5>
+        {/* DYNAMIC LINK TO VIEW THE BOOK DETAILS  */}
         <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
@@ -36,8 +42,9 @@ function ReviewCard({ reviewObj, onUpdate }) {
 ReviewCard.propTypes = {
   reviewObj: PropTypes.shape({
     description: PropTypes.string,
-    gameId: PropTypes.string,
+    recommend: PropTypes.bool,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

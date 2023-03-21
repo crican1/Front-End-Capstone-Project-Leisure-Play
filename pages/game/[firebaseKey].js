@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { viewGameDetails } from '../../api/mergedData';
-import ReviewCard from '../../components/forms/ReviewCard';
-import ReviewForm from '../../components/forms/ReviewForm';
+import { Button } from 'react-bootstrap';
+import { viewGameAndReviews } from '../../api/mergedData';
+import ReviewCard from '../../components/ReviewCard';
 
 export default function ViewGame() {
   const [gameDetails, setGameDetails] = useState({});
@@ -11,12 +13,11 @@ export default function ViewGame() {
   const { firebaseKey } = router.query;
 
   const OnUpdateGame = () => {
-    viewGameDetails(firebaseKey).then(setGameDetails);
+    viewGameAndReviews(firebaseKey).then(setGameDetails);
   };
 
   useEffect(() => {
-    OnUpdateGame();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    viewGameAndReviews(firebaseKey).then(setGameDetails);
   }, []);
 
   return (
@@ -34,12 +35,14 @@ export default function ViewGame() {
           Platform: {gameDetails.platform}
           <hr />
         </h5>
+        <Link href="/review/new" passHref>
+          <Button variant="info">Create Review</Button>
+        </Link>
       </div>
       <div>
-        <ReviewForm />
-      </div>
-      <div>
-        <ReviewCard />
+        {gameDetails.reviews?.map((review) => (
+          <ReviewCard key={review.firebaseKey} reviewObj={review} onUpdate={OnUpdateGame} />
+        ))}
       </div>
     </div>
   );

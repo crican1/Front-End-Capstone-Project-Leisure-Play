@@ -23,7 +23,6 @@ export default function ViewReview() {
       <div className="text-white ms-5 details">
         <h5>
           Reviews: {reviewDetails.description}
-          <hr />
         </h5>
       </div>
     </div>
