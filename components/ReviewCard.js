@@ -25,8 +25,10 @@ function ReviewCard({ reviewObj, onUpdate }) {
     <Card style={{ width: '35rem', margin: '10px' }}>
       <Card.Body>
         <Card.Text>{reviewObj.description}</Card.Text>
+        <hr />
         <Card.Text>Reviewed by: {user.displayName}</Card.Text>
-        <h5 className="card-text bold">{reviewObj.recommend && <span>Recommended<br /></span> }</h5>
+        <hr />
+        <h5 className="card-text bold">{reviewObj.recommend && <span>Recommended 👍🏼<br /></span> }</h5>
         {reviewObj.uid === user.uid ? (
           <>
             <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>

@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { viewGameAndReviews } from '../../api/mergedData';
+import { deleteGameReviewsRelationship, viewGameAndReviews } from '../../api/mergedData';
 import ReviewCard from '../../components/ReviewCard';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewGame() {
   const [gameDetails, setGameDetails] = useState({});
+  const { user } = useAuth();
   const router = useRouter();
 
   const { firebaseKey } = router.query;
@@ -19,6 +21,12 @@ export default function ViewGame() {
   useEffect(() => {
     viewGameAndReviews(firebaseKey).then(setGameDetails);
   }, []);
+
+  const deleteThisGame = () => {
+    if (window.confirm(`Delete ${gameDetails.name}?`)) {
+      deleteGameReviewsRelationship(gameDetails.firebaseKey).then(() => router.push('/game'));
+    }
+  };
 
   return (
     <div className="mt-5 d-flex flex-wrap">
@@ -35,14 +43,24 @@ export default function ViewGame() {
           Platform: {gameDetails.platform}
           <hr />
         </h5>
+        {gameDetails.uid === user.uid ? (
+          <>
+            <Link href={`/game/edit/${gameDetails.firebaseKey}`} passHref>
+              <Button variant="info">EDIT</Button>
+            </Link>
+            <Button variant="danger" onClick={deleteThisGame} className="m-2">
+              DELETE
+            </Button>
+          </>
+        ) : null}
         <Link href="/review/new" passHref>
           <Button variant="warning">Create Review</Button>
         </Link>
-      </div>
-      <div>
-        {gameDetails.reviews?.map((review) => (
-          <ReviewCard key={review.firebaseKey} reviewObj={review} onUpdate={OnUpdateGame} />
-        ))}
+        <div style={{ color: 'black' }}>
+          {gameDetails.reviews?.map((review) => (
+            <ReviewCard key={review.firebaseKey} reviewObj={review} onUpdate={OnUpdateGame} />
+          ))}
+        </div>
       </div>
     </div>
   );

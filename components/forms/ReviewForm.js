@@ -19,10 +19,11 @@ function ReviewForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [games, setGames] = useState([]);
   const router = useRouter();
+  const { firebaseKey } = router.query;
   const { user } = useAuth();
 
   useEffect(() => {
-    getGames().then(setGames);
+    getGames(firebaseKey).then(setGames);
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
@@ -59,8 +60,12 @@ function ReviewForm({ obj }) {
       <Head>
         <title>Create Review</title>
       </Head>
-      <h1>Review a Game</h1>
-      <FloatingLabel controlId="floatingSelect" label="Game Name">
+      <h1 style={{ margin: '10px', color: 'white' }}>Review a Game</h1>
+      <FloatingLabel
+        controlId="floatingSelect"
+        label="Game Name"
+        style={{ width: '45rem', margin: '10px', height: '70px' }}
+      >
         <Form.Select
           aria-label="Game Name"
           name="name"
@@ -84,6 +89,7 @@ function ReviewForm({ obj }) {
       </FloatingLabel>
       <Form onSubmit={handleSubmit}>
         <textarea
+          style={{ width: '45rem', margin: '10px', height: '150px' }}
           type="text"
           placeholder="Submit a review"
           name="description"
@@ -93,6 +99,7 @@ function ReviewForm({ obj }) {
         />
         <Form.Check
           className="text-white mb-3"
+          style={{ margin: '10px' }}
           type="checkbox"
           id="checkbox"
           name="recommend"
@@ -105,7 +112,7 @@ function ReviewForm({ obj }) {
             }));
           }}
         />
-        <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Review</Button>
+        <Button type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} A Review</Button>
       </Form>
     </>
   );

@@ -19,16 +19,10 @@ export default function ShowGames() {
   return (
     <div>
       <Head>
-        <title>Games</title>
+        <title style={{ margin: '10px' }}>Games</title>
       </Head>
-      <h1>Games</h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <h1 style={{ color: 'white' }}>Games</h1>
+      <div style={{ margin: '10px' }}>
         <Link passHref href="/game/new">
           <Button variant="warning">Create Game</Button>
         </Link> &nbsp;&nbsp;

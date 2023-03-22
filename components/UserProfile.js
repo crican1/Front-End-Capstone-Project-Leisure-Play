@@ -8,15 +8,18 @@ export default function Profile() {
   const { user } = useAuth();
 
   return (
-    <div>
+    <div style={{ color: 'white' }}>
       <Head>
         <title>Profile</title>
       </Head>
       <h1>Profile</h1>
       <img src={user.photoURL} alt="userURL" width="100px" height="100px" />
       <h1> Name: {user.displayName}</h1>
+      <hr />
       <h3> Email: {user.email}</h3>
+      <hr />
       <h4> Last Login: {user.metadata.lastSignInTime}</h4>
+      <hr />
       <Button type="button" size="lg" className="copy-btn" onClick={signOut}>
         Sign Out
       </Button>

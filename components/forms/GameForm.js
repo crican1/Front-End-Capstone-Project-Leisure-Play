@@ -65,9 +65,9 @@ function GameForm({ obj }) {
       <Head>
         <title>Create Game</title>
       </Head>
-      <h1>Create a Game</h1>
+      <h1 style={{ margin: '10px', color: 'white' }}>Create a Game</h1>
       <Form onSubmit={handleSubmit}>
-        <FloatingLabel controlId="floatinginput1" label="Game Image" className="mb-3">
+        <FloatingLabel controlId="floatinginput1" label="Game Image" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Control
             type="url"
             placeholder="Enter an image url"
@@ -77,7 +77,7 @@ function GameForm({ obj }) {
             required
           />
         </FloatingLabel>
-        <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3">
+        <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Control
             type="text"
             placeholder="Enter name"
@@ -87,7 +87,7 @@ function GameForm({ obj }) {
             required
           />
         </FloatingLabel>
-        <FloatingLabel controlId="floatinginput1" label="Genre" className="mb-3">
+        <FloatingLabel controlId="floatinginput1" label="Genre" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Control
             type="text"
             placeholder="Enter a genre"
@@ -97,7 +97,7 @@ function GameForm({ obj }) {
             required
           />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingSelect" label="Choose a Platform">
+        <FloatingLabel controlId="floatingSelect" label="Choose a Platform" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Select
             aria-label="Choose a platform"
             type="text"
@@ -114,7 +114,7 @@ function GameForm({ obj }) {
             <option value="Switch">Switch</option>
           </Form.Select>
         </FloatingLabel>
-        <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Game</Button>
+        <Button type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} A Game</Button>
       </Form>
     </>
   );
@@ -124,7 +124,7 @@ function GameForm({ obj }) {
 GameForm.propTypes = {
   obj: PropTypes.shape({
     image: PropTypes.string,
-    title: PropTypes.string,
+    name: PropTypes.string,
     genre: PropTypes.string,
     platform: PropTypes.string,
     firebaseKey: PropTypes.string,

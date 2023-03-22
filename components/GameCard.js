@@ -26,8 +26,11 @@ function GameCard({ gameObj, onUpdate }) {
       <Card.Img variant="top" src={gameObj.image} alt={gameObj.name} style={{ height: '450px' }} />
       <Card.Body>
         <Card.Title>{gameObj.name}</Card.Title>
+        <hr />
         <Card.Text>{gameObj.genre}</Card.Text>
+        <hr />
         <Card.Text>{gameObj.platform}</Card.Text>
+        <hr />
         <Link href={`/game/${gameObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
