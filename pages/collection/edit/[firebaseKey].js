@@ -7,6 +7,7 @@ export default function EditCollection() {
   const [editCollection, setEditCollection] = useState({});
   const router = useRouter();
   const { firebaseKey } = router.query;
+
   useEffect(() => {
     getSingleCollection(firebaseKey).then(setEditCollection);
   }, [firebaseKey]);

@@ -13,7 +13,6 @@ const initialState = {
   genres: '',
   realeased: '',
   platform: '',
-  id: '',
   firebaseKey: '',
 };
 
@@ -49,17 +48,16 @@ function GameForm({ obj }) {
     // IF YOU ARE UPDATING AN EXISTING OBJECT.
     if (obj.firebaseKey) {
       updateGame(formInput)
-        .then(() => router.push('/game'));
+        .then(() => router.push(`/game/${formInput.firebaseKey}`));
     } else {
       // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
-      createGame(payload.name).then(console.warn);
-      // .then(({ name }) => {
-      //   const patchPayload = { firebaseKey: name };
-      //   updateGame(patchPayload).then(() => {
-      //     router.push('/game');
-      //   });
-      // });
+      createGame(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateGame(patchPayload).then(() => {
+          router.push(`/game/${formInput.firebaseKey}`);
+        });
+      });
     }
   };
 
@@ -68,9 +66,19 @@ function GameForm({ obj }) {
       <Head>
         <title>Create Game</title>
       </Head>
+      <h1 style={{ margin: '10px', color: 'white' }}>Create a Game</h1>
       <Form onSubmit={handleSubmit}>
-        <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Add'} A Game</h2>
-        <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3">
+        <FloatingLabel controlId="floatinginput1" label="Game Image" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
+          <Form.Control
+            type="url"
+            placeholder="Enter an image url"
+            name="image"
+            value={formInput.image}
+            onChange={handleChange}
+            required
+          />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Control
             type="text"
             placeholder="Enter name"
@@ -80,7 +88,17 @@ function GameForm({ obj }) {
             required
           />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingSelect" label="Choose a Platform">
+        <FloatingLabel controlId="floatinginput1" label="Genre" className="mb-3" style={{ width: '45rem', margin: '10px', height: '70px' }}>
+          <Form.Control
+            type="text"
+            placeholder="Enter a genre"
+            name="genre"
+            value={formInput.genre}
+            onChange={handleChange}
+            required
+          />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatingSelect" label="Choose a Platform" style={{ width: '45rem', margin: '10px', height: '70px' }}>
           <Form.Select
             aria-label="Choose a platform"
             type="text"
@@ -90,13 +108,14 @@ function GameForm({ obj }) {
             onChange={handleChange}
             required
           >
+            <option value="">Select an Option</option>
             <option value="Xbox">Xbox</option>
             <option value="Playstation">Playstation</option>
             <option value="PC">PC</option>
             <option value="Switch">Switch</option>
           </Form.Select>
         </FloatingLabel>
-        <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Game</Button>
+        <Button variant="warning" type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} Game</Button>
       </Form>
     </>
   );
@@ -105,11 +124,10 @@ function GameForm({ obj }) {
 // MAKES SURE THE VALUES BEING PASSED ARE THE CORRECT TYPE.
 GameForm.propTypes = {
   obj: PropTypes.shape({
+    image: PropTypes.string,
     name: PropTypes.string,
-    genres: PropTypes.string,
-    realeased: PropTypes.string,
+    genre: PropTypes.string,
     platform: PropTypes.string,
-    id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };

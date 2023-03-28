@@ -1,8 +1,7 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { getCollectionDetails } from '../../api/mergedData';
+import { useEffect, useState } from 'react';
+import { viewCollectionDetails } from '../../api/mergedData';
+import GameCard from '../../components/GameCard';
 
 export default function ViewCollection() {
   const [collectionDetails, setCollectionDetails] = useState({});
@@ -11,25 +10,23 @@ export default function ViewCollection() {
   const { firebaseKey } = router.query;
 
   const OnUpdateCollection = () => {
-    getCollectionDetails(firebaseKey).then(setCollectionDetails);
+    viewCollectionDetails(firebaseKey).then(setCollectionDetails);
   };
 
   useEffect(() => {
-    OnUpdateCollection();
-  }, []);
+    viewCollectionDetails(firebaseKey).then(setCollectionDetails);
+  }, [firebaseKey]);
 
   return (
-    <div className="mt-5 d-flex flex-wrap">
-      <div className="d-flex flex-column" style={{ width: '30rem' }} />
-      <div className="text-white ms-5 details">
-        <h5>
-          Name: {collectionDetails.name}
-          <hr />
-        </h5>
-        <Link href="/collection/[firebaseKey]" passHref>
-          <Button variant="primary" className="m-2">View Collection</Button>
-        </Link>
+    <>
+      <div className="mt-5 d-flex flex-wrap">
+        <h5>Collection Name: {collectionDetails.collectionName}</h5>
       </div>
-    </div>
+      <div>
+        {collectionDetails.games?.map((game) => (
+          <GameCard key={game.name} collectionObj={game} onUpdate={OnUpdateCollection} />
+        ))}
+      </div>
+    </>
   );
 }

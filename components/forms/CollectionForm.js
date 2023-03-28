@@ -1,37 +1,31 @@
 import Head from 'next/head';
-import Router, { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { createCollection, getCollectionGames, updateCollection } from '../../api/collectionData';
+import { createCollection, updateCollection } from '../../api/collectionData';
+import { getGames } from '../../api/gameData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
-  name: '',
+  collectionName: '',
   firebaseKey: '',
   uid: '',
 };
 
 function CollectionForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [setCollection] = useState([]);
+  const [setGames] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    getCollectionGames().then(setCollection);
+    getGames().then(setGames);
     if (obj.firebaseKey) setFormInput(obj);
-    // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [obj, user]);
-
-  // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [obj, setGames]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // TAKES WHAT EVER THE PREVIOUS VALUE WAS.
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -40,12 +34,10 @@ function CollectionForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (obj.firebaseKey) {
       updateCollection(formInput)
-        .then(() => Router.push('/collection'));
+        .then(() => router.push('/collection'));
     } else {
-      // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
       createCollection(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
@@ -66,14 +58,14 @@ function CollectionForm({ obj }) {
         <FloatingLabel controlId="floatinginput1" label="Collection Name" className="mb-3">
           <Form.Control
             type="text"
-            placeholder="Enter name"
-            name="name"
-            value={formInput.name}
+            placeholder="Enter a collection name"
+            name="collectionName"
+            value={formInput.collectionName}
             onChange={handleChange}
             required
           />
         </FloatingLabel>
-        <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Collection</Button>
+        <Button variant="warning" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Collection</Button>
       </Form>
     </>
   );
@@ -81,7 +73,7 @@ function CollectionForm({ obj }) {
 
 CollectionForm.propTypes = {
   obj: PropTypes.shape({
-    name: PropTypes.string,
+    collectionName: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
   }),
@@ -90,4 +82,5 @@ CollectionForm.propTypes = {
 CollectionForm.defaultProps = {
   obj: initialState,
 };
+
 export default CollectionForm;
