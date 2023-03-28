@@ -47,6 +47,7 @@ function CollectionForm({ obj }) {
       });
     }
   };
+
   return (
     <>
       <Head>

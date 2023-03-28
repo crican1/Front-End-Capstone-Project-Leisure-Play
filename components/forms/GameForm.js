@@ -8,9 +8,10 @@ import { createGame, getGames, updateGame } from '../../api/gameData';
 
 const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
-  image: '',
+  background_image: '',
   name: '',
-  genre: '',
+  genres: '',
+  realeased: '',
   platform: '',
   firebaseKey: '',
 };

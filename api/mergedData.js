@@ -14,6 +14,7 @@ const viewGameAndReviews = (gameFirebaseKey) => new Promise((resolve, reject) =>
 const viewCollectionDetails = (collectionfirebaseKey) => new Promise((resolve, reject) => {
   getSingleCollection(collectionfirebaseKey).then((gameObj) => {
     getGames(gameObj.name).then((gamesArray) => resolve({ ...gameObj, gamesArray }));
+
   })
     .catch(reject);
 });

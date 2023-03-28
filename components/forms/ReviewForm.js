@@ -11,7 +11,9 @@ const initialState = {
   description: '',
   recommend: false,
   gameId: '',
+  recommend: '',
   firebaseKey: '',
+  uid: '',
 };
 
 function ReviewForm({ obj }) {
@@ -21,6 +23,7 @@ function ReviewForm({ obj }) {
   const { user } = useAuth();
 
   useEffect(() => {
+    getSingleReview().then(setReviews);
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
@@ -95,6 +98,7 @@ ReviewForm.propTypes = {
     description: PropTypes.string,
     recommend: PropTypes.bool,
     firebaseKey: PropTypes.string,
+    uid: PropTypes.string,
   }),
 };
 

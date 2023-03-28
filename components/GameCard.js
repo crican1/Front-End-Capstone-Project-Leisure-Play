@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
@@ -9,11 +10,13 @@ import { useAuth } from '../utils/context/authContext';
 function GameCard({ gameObj, onUpdate }) {
   const { user } = useAuth();
   const [setGameDetails] = useState([]);
+  const router = useRouter();
+  const { firebaseKey } = router.query;
 
   useEffect(() => {
-    getSingleCollection(gameObj.gameId).then(setGameDetails);
+    getSingleCollection(gameObj.firebaseKey).then(setGameDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameObj.gameId]);
+  }, [gameObj.firebaseKey]);
 
   const deleteThisGame = () => {
     if (window.confirm(`Delete ${gameObj.name}?`)) {
@@ -48,15 +51,14 @@ function GameCard({ gameObj, onUpdate }) {
 
 GameCard.propTypes = {
   gameObj: PropTypes.shape({
-    gameId: PropTypes.string,
-    image: PropTypes.string,
+    background_image: PropTypes.string,
     name: PropTypes.string,
-    genre: PropTypes.string,
-    platform: PropTypes.string,
+    genres: PropTypes.string,
+    released: PropTypes.string,
+    id: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
-  onUpdate: PropTypes.func.isRequired,
 };
 
 export default GameCard;
