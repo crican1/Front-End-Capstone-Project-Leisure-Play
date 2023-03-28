@@ -32,18 +32,15 @@ function GameCard({ gameObj, onUpdate }) {
         <Card.Text>{gameObj.platform}</Card.Text>
         <hr />
         <Link href={`/game/${gameObj.firebaseKey}`} passHref>
-          <Button variant="primary" className="m-2">VIEW</Button>
+          <Button variant="secondary" className="m-2">View</Button>
         </Link>
         {gameObj.uid === user.uid ? (
           <>
-            <Link href={`/game/edit/${gameObj.firebaseKey}`} passHref>
-              <Button variant="info">EDIT</Button>
-            </Link>
             <Button variant="danger" onClick={deleteThisGame} className="m-2">
-              DELETE
+              Delete
             </Button>
           </>
-        ) : null}
+        ) : ''}
       </Card.Body>
     </Card>
   );

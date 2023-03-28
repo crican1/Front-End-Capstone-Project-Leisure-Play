@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -20,7 +21,7 @@ export default function ViewGame() {
 
   useEffect(() => {
     viewGameAndReviews(firebaseKey).then(setGameDetails);
-  }, []);
+  }, [firebaseKey]);
 
   const deleteThisGame = () => {
     if (window.confirm(`Delete ${gameDetails.name}?`)) {
@@ -30,6 +31,9 @@ export default function ViewGame() {
 
   return (
     <div className="mt-5 d-flex flex-wrap">
+      <Head>
+        <title style={{ margin: '10px' }}>{gameDetails.name}</title>
+      </Head>
       <div className="d-flex flex-column" style={{ width: '30rem' }}>
         <img src={gameDetails.image} alt={gameDetails.name} />
         <hr />
@@ -46,14 +50,14 @@ export default function ViewGame() {
         {gameDetails.uid === user.uid ? (
           <>
             <Link href={`/game/edit/${gameDetails.firebaseKey}`} passHref>
-              <Button variant="info">EDIT</Button>
+              <Button variant="dark">Edit</Button>
             </Link>
             <Button variant="danger" onClick={deleteThisGame} className="m-2">
-              DELETE
+              Delete
             </Button>
           </>
         ) : null}
-        <Link href="/review/new" passHref>
+        <Link href={`/review/new/${gameDetails.firebaseKey}`} passHref>
           <Button variant="warning">Create Review</Button>
         </Link>
         <div style={{ color: 'black' }}>

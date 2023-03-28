@@ -13,7 +13,7 @@ function ReviewCard({ reviewObj, onUpdate }) {
   useEffect(() => {
     getGameReviews(reviewDetails.firebaseKey).then(setReviewDetails);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reviewDetails.firebaseKey]);
 
   const deleteThisReview = () => {
     if (window.confirm('Delete this review?')) {
@@ -32,13 +32,13 @@ function ReviewCard({ reviewObj, onUpdate }) {
         {reviewObj.uid === user.uid ? (
           <>
             <Link href={`/review/edit/${reviewObj.firebaseKey}`} passHref>
-              <Button variant="info">EDIT</Button>
+              <Button variant="dark">Edit</Button>
             </Link>
             <Button variant="danger" onClick={deleteThisReview} className="m-2">
-              DELETE
+              Delete
             </Button>
           </>
-        ) : null}
+        ) : ''}
       </Card.Body>
     </Card>
   );

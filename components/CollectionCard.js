@@ -27,7 +27,7 @@ function CollectionCard({ collectionObj }) {
         <Link href={`/collection/${collectionObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
-        <Link href={`/game/edit/${collectionObj.firebaseKey}`} passHref>
+        <Link href={`/collection/edit/${collectionObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisCollection} className="m-2">
@@ -42,6 +42,8 @@ CollectionCard.propTypes = {
   collectionObj: PropTypes.shape({
     collectionName: PropTypes.string,
     firebaseKey: PropTypes.string,
+    name: PropTypes.string,
+    uid: PropTypes.string,
   }).isRequired,
 };
 

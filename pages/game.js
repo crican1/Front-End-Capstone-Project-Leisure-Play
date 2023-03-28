@@ -21,14 +21,11 @@ export default function ShowGames() {
       <Head>
         <title style={{ margin: '10px' }}>Games</title>
       </Head>
-      <h1 style={{ color: 'white' }}>Games</h1>
+      <h1 style={{ margin: '10px', color: 'white' }}>Games</h1>
       <div style={{ margin: '10px' }}>
         <Link passHref href="/game/new">
           <Button variant="warning">Create Game</Button>
         </Link> &nbsp;&nbsp;
-        <Link href="/review/new" passHref>
-          <Button variant="warning">Create Review</Button>
-        </Link>
       </div>
       {games.map((game) => (
         <GameCard key={game.firebaseKey} gameObj={game} onUpdate={getAllGames} />

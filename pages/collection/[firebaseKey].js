@@ -23,8 +23,8 @@ export default function ViewCollection() {
         <h5>Collection Name: {collectionDetails.collectionName}</h5>
       </div>
       <div>
-        {collectionDetails.name?.map((collection) => (
-          <GameCard key={collection.name} collectionObj={collection} onUpdate={OnUpdateCollection} />
+        {collectionDetails.games?.map((game) => (
+          <GameCard key={game.name} collectionObj={game} onUpdate={OnUpdateCollection} />
         ))}
       </div>
     </>

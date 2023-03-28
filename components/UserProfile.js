@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Head from 'next/head';
@@ -20,7 +21,7 @@ export default function Profile() {
       <hr />
       <h4> Last Login: {user.metadata.lastSignInTime}</h4>
       <hr />
-      <Button type="button" size="lg" className="copy-btn" onClick={signOut}>
+      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
         Sign Out
       </Button>
     </div>

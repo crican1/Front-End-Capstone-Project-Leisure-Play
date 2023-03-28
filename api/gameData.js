@@ -1,6 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
+const apiKey = clientCredentials.rawgApiKey;
 
 const getGames = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/game/.json`, {
@@ -88,7 +89,7 @@ const getGameName = (payload) => new Promise((resolve, reject) => {
 });
 
 const getGameApi = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/games?key=22d748d8c7794d06acce37f48a22b830&search=${payload}.json`, {
+  fetch(`${endpoint}/games?key=${apiKey}&search=${payload.name}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ const getGameApi = (payload) => new Promise((resolve, reject) => {
 });
 
 const getGameReviews = (gamefirebasekey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/review.json?orderBy="name"&equalTo="${gamefirebasekey}"`, {
+  fetch(`${endpoint}/review.json?orderBy="gameId"&equalTo="${gamefirebasekey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

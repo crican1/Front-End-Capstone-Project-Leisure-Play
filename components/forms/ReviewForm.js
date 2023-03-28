@@ -1,33 +1,30 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import Head from 'next/head';
 import { createReview, updateReview } from '../../api/reviewData';
 import { useAuth } from '../../utils/context/authContext';
-import { getGames } from '../../api/gameData';
 
 const initialState = {
   // THIS IS THE WAY THE FORM WILL SHOP UP WHEN FIRST NAVIGATED TO.
   description: '',
   recommend: false,
-  name: '',
+  gameId: '',
   firebaseKey: '',
 };
 
 function ReviewForm({ obj }) {
-  const [formInput, setFormInput] = useState(initialState);
-  const [games, setGames] = useState([]);
   const router = useRouter();
   const { firebaseKey } = router.query;
+  const [formInput, setFormInput] = useState({ ...initialState, gameId: firebaseKey });
   const { user } = useAuth();
 
   useEffect(() => {
-    getGames(firebaseKey).then(setGames);
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
-  }, [obj, user]);
+  }, [obj, firebaseKey]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,13 +40,13 @@ function ReviewForm({ obj }) {
     e.preventDefault();
     if (obj.firebaseKey) {
       updateReview(formInput)
-        .then(() => router.push(`/game/${formInput.name}`));
+        .then(() => router.push(`/game/${formInput.gameId}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createReview(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateReview(patchPayload).then(() => {
-          router.push(`/game/${formInput.name}`);
+          router.push(`/game/${formInput.gameId}`);
         });
       });
     }
@@ -60,33 +57,7 @@ function ReviewForm({ obj }) {
       <Head>
         <title>Create Review</title>
       </Head>
-      <h1 style={{ margin: '10px', color: 'white' }}>Review a Game</h1>
-      <FloatingLabel
-        controlId="floatingSelect"
-        label="Game Name"
-        style={{ width: '45rem', margin: '10px', height: '70px' }}
-      >
-        <Form.Select
-          aria-label="Game Name"
-          name="name"
-          onChange={handleChange}
-          className="mb-3"
-          value={games.name}
-          required
-        >
-          <option value="">Select a Game</option>
-          {
-            games.map((game) => (
-              <option
-                key={game.firebaseKey}
-                value={game.firebaseKey}
-              >
-                {game.name}
-              </option>
-            ))
-          }
-        </Form.Select>
-      </FloatingLabel>
+      <h1 style={{ margin: '10px', color: 'white' }}>Leave a Review</h1>
       <Form onSubmit={handleSubmit}>
         <textarea
           style={{ width: '45rem', margin: '10px', height: '150px' }}
@@ -112,7 +83,7 @@ function ReviewForm({ obj }) {
             }));
           }}
         />
-        <Button type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} A Review</Button>
+        <Button variant="warning" type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} Review</Button>
       </Form>
     </>
   );
@@ -120,7 +91,7 @@ function ReviewForm({ obj }) {
 
 ReviewForm.propTypes = {
   obj: PropTypes.shape({
-    name: PropTypes.string,
+    gameId: PropTypes.string,
     description: PropTypes.string,
     recommend: PropTypes.bool,
     firebaseKey: PropTypes.string,

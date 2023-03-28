@@ -47,14 +47,14 @@ function GameForm({ obj }) {
     // IF YOU ARE UPDATING AN EXISTING OBJECT.
     if (obj.firebaseKey) {
       updateGame(formInput)
-        .then(() => router.push('/game'));
+        .then(() => router.push(`/game/${formInput.firebaseKey}`));
     } else {
       // IF YOU ARE ENTERING A NEW OBJECT.
       const payload = { ...formInput, uid: user.uid };
       createGame(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateGame(patchPayload).then(() => {
-          router.push('/game');
+          router.push(`/game/${formInput.firebaseKey}`);
         });
       });
     }
@@ -114,7 +114,7 @@ function GameForm({ obj }) {
             <option value="Switch">Switch</option>
           </Form.Select>
         </FloatingLabel>
-        <Button type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} A Game</Button>
+        <Button variant="warning" type="submit" style={{ margin: '10px' }}>{obj.firebaseKey ? 'Update' : 'Create'} Game</Button>
       </Form>
     </>
   );

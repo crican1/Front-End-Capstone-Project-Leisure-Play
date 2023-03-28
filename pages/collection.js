@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { getCollections } from '../api/collectionData';
-import { viewCollectionDetails } from '../api/mergedData';
-import GameCard from '../components/GameCard';
+import CollectionCard from '../components/CollectionCard';
 
 export default function ShowCollections() {
   const [collections, setCollections] = useState([]);
@@ -11,18 +10,18 @@ export default function ShowCollections() {
     getCollections().then(setCollections);
   }, []);
 
-  const getAllCollectionGames = () => {
-    viewCollectionDetails().then(setCollections);
+  const getAllCollections = () => {
+    getCollections().then(setCollections);
   };
 
   return (
     <div>
       <Head>
-        <title>Collections</title>
+        <title style={{ margin: '10px' }}>Collections</title>
       </Head>
-      <h1>Collections</h1>
-      {collections.name?.map((game) => (
-        <GameCard key={game.firebaseKey} gameObj={game} onUpdate={getAllCollectionGames} />
+      <h1 style={{ margin: '10px', color: 'white' }}>Collections</h1>
+      {collections.map((collection) => (
+        <CollectionCard key={collections.firebaseKey} collectionbj={collection} onUpdate={getAllCollections} />
       ))}
     </div>
   );

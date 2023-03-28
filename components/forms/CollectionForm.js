@@ -15,14 +15,14 @@ const initialState = {
 
 function CollectionForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [games, setGames] = useState([]);
+  const [setGames] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
     getGames().then(setGames);
     if (obj.firebaseKey) setFormInput(obj);
-  }, [obj, user]);
+  }, [obj, setGames]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,29 +64,7 @@ function CollectionForm({ obj }) {
             required
           />
         </FloatingLabel>
-        <FloatingLabel controlId="floatinginput1" label="Game Name" className="mb-3">
-          <Form.Select
-            type="text"
-            placeholder="Enter name"
-            name="name"
-            value={formInput.name}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a Game</option>
-            {
-            games.map((game) => (
-              <option
-                key={game.firebaseKey}
-                value={game.firebaseKey}
-              >
-                {game.name}
-              </option>
-            ))
-          }
-          </Form.Select>
-        </FloatingLabel>
-        <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} A Collection</Button>
+        <Button variant="warning" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Collection</Button>
       </Form>
     </>
   );
