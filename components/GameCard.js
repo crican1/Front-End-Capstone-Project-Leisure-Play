@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
@@ -10,8 +9,6 @@ import { useAuth } from '../utils/context/authContext';
 function GameCard({ gameObj, onUpdate }) {
   const { user } = useAuth();
   const [setGameDetails] = useState([]);
-  const router = useRouter();
-  const { firebaseKey } = router.query;
 
   useEffect(() => {
     getSingleCollection(gameObj.firebaseKey).then(setGameDetails);
@@ -51,14 +48,15 @@ function GameCard({ gameObj, onUpdate }) {
 
 GameCard.propTypes = {
   gameObj: PropTypes.shape({
-    background_image: PropTypes.string,
+    image: PropTypes.string,
     name: PropTypes.string,
-    genres: PropTypes.string,
-    released: PropTypes.string,
+    genre: PropTypes.string,
+    platform: PropTypes.string,
     id: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default GameCard;
