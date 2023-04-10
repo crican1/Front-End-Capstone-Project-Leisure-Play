@@ -56,7 +56,7 @@ const viewGameAndReviews = (gameFirebaseKey) => new Promise((resolve, reject) =>
 ## Get Started
 1. Create a Firebase project and set up authentication.
 2. Clone Leisure Play to your local server
-3. [GitHub Link](git@github.com:crican1/Front-End-Capstone-Project-Leisure-Play.git)
+3. git@github.com:crican1/Front-End-Capstone-Project-Leisure-Play.git
 4. Create a .env file at the root of the project
 5. Copy the environmental variables from Firebase and paste them as the properties of the keys found in your newly created .env file
 6. Import sample data found in data folder in to the Realtime Database
