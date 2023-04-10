@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import Head from 'next/head';
-import { createReview, updateReview } from '../../api/reviewData';
+import { createReview, getSingleReview, updateReview } from '../../api/reviewData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
@@ -11,7 +11,6 @@ const initialState = {
   description: '',
   recommend: false,
   gameId: '',
-  recommend: '',
   firebaseKey: '',
   uid: '',
 };
@@ -23,7 +22,7 @@ function ReviewForm({ obj }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    getSingleReview().then(setReviews);
+    getSingleReview().then();
     if (obj.firebaseKey) setFormInput(obj);
 
     // WHENEVER ONE OF THESE CHANGES THE HOOK RERUNS
