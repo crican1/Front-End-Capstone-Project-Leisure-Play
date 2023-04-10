@@ -1,14 +1,20 @@
-# React/Next.js Template
+# Leisure Play
 
-[See Live Demo of this Template](https://drt-next-js-template.netlify.app/)
+[View the Leisure Play app here.](https://leisure-play.netlify.app/)
 
 ## Topics
+- [Overview](#overview)
+- [MVP Features](#mvp-features)
+- [Video Walkthrough of MVP](#video-walkthrough-of-mvp)
+- [Code Snippet](#code-snippet)
+- [Project Screenshots](#project-screenshots)
 - [Get Started](#get-started)
-- [Starting the Project](#starting-the-project)
-- [Using axios](#using-axios)
-- [Deploying on Netlify](#deploying-on-netlify)
+- [Tech and Frameworks Used](#tech and Frameworks Used)
+- [API Reference](#api-reference)
+- [Contributors] (#contributors)
+
 ___
-## Getting Started
+## Overview
 ### Use Template
 #### 1. To get started, click the GREEN "Use this Template" button at the top of the repo
 <img width="915" alt="Screen Shot 2022-07-06 at 12 54 01 PM" src="https://user-images.githubusercontent.com/29741570/177612998-4aac9237-5a1e-4f13-8ae0-468587521564.png">
