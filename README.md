@@ -18,14 +18,14 @@ ___
 ## Overview
 - The ideal user for Leisure Play is people who play video games and want a space to post games and let others review them and see what others think.
 - Gamers can submit any game they would like and leave it open for themselves or others to submit a review on those games.
-- Anyone can submit a review to any game submitted to the app but only the original submittor can edit/delete their review or game.
+- Anyone can submit a review to any game submitted to the app but only the original submitter can edit/delete their review or game.
 
 ## MVP Features
 - Allow a user to submit a game after pressing "Create Game" button using a form that takes input to generate a card for that game.
-- Allow only the original submittor to edit/delete the game that was submitted.
+- Allow only the original submitter to edit/delete the game that was submitted.
 - When a user clicks on "View Game" it takes them to the page where they can see the details of the game and any of the reviews associated with it.
 - When a user clicks on "Create Review" it takes them to a form that takes input to generate a review card.
-- Allow only the original submittor to edit/delete the review that was submitted.
+- Allow only the original submitter to edit/delete the review that was submitted.
 - When a user deletes their review, it leaves the game up so others can continue to review it.
 - When a user deletes a game, it deletes the game and any reviews associated with it.
 
